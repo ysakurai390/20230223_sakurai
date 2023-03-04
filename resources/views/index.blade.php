@@ -238,9 +238,20 @@
                 
               <td><input type="text" class="input-update" value="{{$todo->content}}" name="content"></td>
 
+
+
+
+
               <td><select name="tag_id" class="select-tag">
                 @foreach($tags as $tag)
-                <option $tagSelected value="{{$tag->id}}">{{$tag->tag}}</option>
+
+                @if($todo->tag_id === $tag->id)
+                return 'selected';
+                else
+                return '';
+                <option value="{{$tag->id}}">{{$tag->tag}}</option>
+                @endif
+
                 @endforeach
                 </select>
               </td>

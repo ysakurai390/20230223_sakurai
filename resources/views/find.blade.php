@@ -209,7 +209,7 @@
           <p>{{$message}}</p>
           @enderror
 
-          <input type="text" class="input-add" name="content" value={{$input}}>
+          <input type="text" class="input-add" name="content">
 
           
 
@@ -221,10 +221,6 @@
             <option value="4">食事</option>
             <option value="5">移動</option>
           </select>
-
-
-          
-          
 
           <input class="button-add" type="submit" value="検索">
         </form>
@@ -240,8 +236,9 @@
             <th>削除</th>
           </tr>
           
-          @foreach ($todos as $todo)
-          @if (@isset($content))
+          
+          @if (@isset($todos))
+          @foreach($todos as $todo)
           <form action="/todos/search" method="get">
             @csrf
             <tr>
@@ -249,23 +246,34 @@
                 
               <td><input type="text" class="input-update" value="{{$todo->content}}" name="content"></td>
 
+
               <td><select name="tag_id" class="select-tag">
                 @foreach($tags as $tag)
+                @if($todo->tag_id === $tag->id)
+                return 'selected';
+                else
+                return '';
                 <option value="{{$tag->id}}">{{$tag->tag}}</option>
+                @endif
                 @endforeach
                 </select>
               </td>
+              
+              
 
               <input type="hidden" name="id" value="{{$todo->id}}">
 
-              <td><input class="button-update" type="submit" value="更新" formaction="/todos/uodate"></td>
+              <td><input class="button-update" type="submit" value="更新" formaction="/todos/update"></td>
 
               <td><input class="button-delete" type="submit" value="削除" formaction="/todos/delete"></td>
 
             </tr>
           </form>
-          @endif
           @endforeach
+          @endif
+          
+          
+          
           
           
           

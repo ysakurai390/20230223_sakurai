@@ -19,7 +19,7 @@ class CreateTodosTable extends Migration
             //追加 
             $table->integer('name_id');
             $table->integer('tag_id');
-            
+            //
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

@@ -46,30 +46,31 @@ class TodoController extends Controller
         return redirect('/');
     }
 
+    
+
     public function find()
     {
-        $todos = todo::all();
         $user = Auth::user();
         $tags = tag::all();
-        $param = ['todos' => $todos, 'tags' => $tags, 'user' => $user, 'input' => ''];
+        $param = ['tags' => $tags, 'user' => $user];
         return view('find', $param);
     }
 
     public function search(Request $request)
     {
-        $todos = todo::all();
         $user = Auth::user();
-        $tags = tag::all();
-        $content = Todo::where('content', 'LIKE BINARY',"%{$request->input}%")->get();
+        $tags = Tag::all();
+        $todos = Todo::where('content', 'LIKE BINARY',"%{$request->content}%")->orWhere('tag_id', 'LIKEBINARY',"%($request->tag_id)%")->get();
         $param = [
-            'input' => $request->input,
+            //'input' => $request->input,
             'todos' => $todos,
             'user' => $user,
-            'content' => $content,
             'tags' => $tags
         ];
         return view('find', $param);
     }
+
+    
 
 
     
