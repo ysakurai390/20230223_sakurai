@@ -57,10 +57,11 @@ class TodoController extends Controller
     }
 
     //search action色々試し中
-    public function search2(Request $request)
+    public function search(Request $request)
     {
         $user = Auth::user();
-        $tags = Tag::find($request->id);
+        //$tags = Tag::find($request->id);
+        $tags = Tag::all();
         $todos = Todo::where('content', 'LIKE BINARY',"%{$request->content}%")->orWhere('tag_id', '=',"($request->tag_id)")->get();
         $param = [
             //'input' => $request->input,
@@ -71,8 +72,9 @@ class TodoController extends Controller
         return view('find', $param);
     }
 
-    public function search(Request $request)
+    public function search2(Request $request)
     {
+        $tags = Tag::all();
         $user = Auth::user();
         $todos = Todo::where('content', 'LIKE BINARY',"%{$request->content}%")->get();
         $tags = Tag::orWhere('id', '=',"{$request->tag_id}")->get();
