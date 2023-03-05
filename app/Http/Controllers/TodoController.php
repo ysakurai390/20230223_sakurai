@@ -56,11 +56,12 @@ class TodoController extends Controller
         return view('find', $param);
     }
 
-    public function search(Request $request)
+    //search action色々試し中
+    public function search2(Request $request)
     {
         $user = Auth::user();
-        $tags = Tag::all();
-        $todos = Todo::where('content', 'LIKE BINARY',"%{$request->content}%")->orWhere('tag_id', 'LIKEBINARY',"%($request->tag_id)%")->get();
+        $tags = Tag::find($request->id);
+        $todos = Todo::where('content', 'LIKE BINARY',"%{$request->content}%")->orWhere('tag_id', '=',"($request->tag_id)")->get();
         $param = [
             //'input' => $request->input,
             'todos' => $todos,
@@ -69,6 +70,21 @@ class TodoController extends Controller
         ];
         return view('find', $param);
     }
+
+    public function search(Request $request)
+    {
+        $user = Auth::user();
+        $todos = Todo::where('content', 'LIKE BINARY',"%{$request->content}%")->get();
+        $tags = Tag::orWhere('id', '=',"{$request->tag_id}")->get();
+        $param = [
+            //'input' => $request->input,
+            'todos' => $todos,
+            'user' => $user,
+            'tags' => $tags
+        ];
+        return view('find', $param);
+    }
+    //
 
     
 

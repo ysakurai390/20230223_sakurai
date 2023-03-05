@@ -237,7 +237,7 @@
           </tr>
           
           
-          @if (@isset($todos))
+          @if (@isset($todos, $tags))
           @foreach($todos as $todo)
           <form action="/todos/search" method="get">
             @csrf
@@ -249,12 +249,14 @@
 
               <td><select name="tag_id" class="select-tag">
                 @foreach($tags as $tag)
+                
                 @if($todo->tag_id === $tag->id)
                 return 'selected';
                 else
                 return '';
                 <option value="{{$tag->id}}">{{$tag->tag}}</option>
                 @endif
+                
                 @endforeach
                 </select>
               </td>
