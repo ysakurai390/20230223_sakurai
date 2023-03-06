@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+
 
 class Todo extends Model
 {
@@ -21,5 +23,10 @@ class Todo extends Model
     {
         $txt = $this->name_id . 'でログイン';
         return $txt;
+    }
+
+    public function todoSearch(Request $request)
+    {
+        
     }
 }
